@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casual Wear Order Form – Milandhoo Health Centre (TEAM MOHFW)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .tab-active {
+      border-bottom: 2px solid #065f46;
+      color: #065f46;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- Top Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-4 gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-900 text-white flex items-center justify-center font-extrabold text-sm tracking-tight shadow-sm">
+            MHC
+          </div>
+          <div>
+            <h1 class="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
+              Milandhoo Health Centre
+            </h1>
+            <p class="text-xs font-medium text-emerald-700 tracking-wide uppercase">
+              Casual Wear Order Form • TEAM MOHFW
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 self-start sm:self-auto">
+          <span id="syncBadge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
+            <span id="syncDot" class="w-2 h-2 rounded-full bg-amber-500"></span>
+            <span id="syncText">Local Mode</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex gap-6 text-sm text-slate-500">
+        <button id="tabOrderBtn" onclick="switchTab('order')" class="pb-3 tab-active transition-colors">
+          Order Form
+        </button>
+        <button id="tabResponsesBtn" onclick="switchTab('responses')" class="pb-3 hover:text-slate-800 transition-colors flex items-center gap-2">
+          <span>Responses</span>
+          <span id="responseCountPill" class="px-2 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-800 font-semibold">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+    <!-- TAB 1: ORDER FORM -->
+    <div id="orderView" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- Left Column: Garment Preview & Size Chart -->
+      <div class="lg:col-span-7 space-y-6">
+
+        <!-- Garment Preview Card -->
+        <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+            <div>
+              <h2 class="font-bold text-slate-900">Casual Wear Design Preview</h2>
+              <p class="text-xs text-slate-500">Black &amp; Forest Green Polo • Front &amp; Back</p>
+            </div>
+            <label class="cursor-pointer text-xs font-medium text-emerald-800 hover:text-emerald-950 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg border border-emerald-200 transition">
+              Change Photo
+              <input type="file" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)" />
+            </label>
+          </div>
+
+          <div class="p-5 bg-slate-100/70 flex items-center justify-center">
+            <!-- Custom Uploaded Image Container -->
+            <img id="customShirtImg" class="hidden max-h-80 w-auto rounded-xl object-contain shadow-sm" alt="Casual Wear Preview" />
+
+            <!-- Default Vector Mockup of Black/Green Polo (Front & Back) -->
+            <div id="defaultShirtMockup" class="w-full max-w-xl">
+              <svg viewBox="0 0 640 340" class="w-full h-auto drop-shadow-sm" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background subtle pattern -->
+                <rect width="640" height="340" rx="14" fill="#eef2f6" />
+
+                <!-- FRONT SHIRT (Left) -->
+                <g transform="translate(40, 22)">
+                  <!-- Sleeves -->
+                  <path d="M72 42 L18 84 L42 126 L76 102 Z" fill="#18181b" />
+                  <path d="M18 84 L42 126 L48 121 L24 79 Z" fill="#166534" />
+                  <path d="M188 42 L242 84 L218 126 L184 102 Z" fill="#18181b" />
+                  <path d="M242 84 L218 126 L212 121 L236 79 Z" fill="#166534" />
+                  <!-- Torso -->
+                  <path d="M72 42 Q130 56 188 42 L192 282 L68 282 Z" fill="#18181b" />
+                  <!-- Collar -->
+                  <path d="M96 34 Q130 54 164 34 L154 64 L130 52 L106 64 Z" fill="#27272a" stroke="#166534" stroke-width="2.5" />
+                  <!-- Placket -->
+                  <rect x="125" y="50" width="10" height="44" rx="2" fill="#27272a" />
+                  <circle cx="130" cy="64" r="2" fill="#52525b" />
+                  <circle cx="130" cy="82" r="2" fill="#52525b" />
+                  <!-- Chest Logo -->
+                  <text x="158" y="96" fill="#e4e4e7" font-size="6.5" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">MILANDHOO</text>
+                  <text x="158" y="104" fill="#a1a1aa" font-size="5.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">HEALTH CENTRE</text>
+                  <!-- Green Hem Digital Pattern -->
+                  <g fill="#166534" opacity="0.9">
+                    <rect x="74" y="252" width="5" height="26" rx="2.5" />
+                    <rect x="85" y="242" width="5" height="36" rx="2.5" />
+                    <rect x="96" y="258" width="5" height="20" rx="2.5" />
+                    <rect x="107" y="246" width="5" height="32" rx="2.5" />
+                    <rect x="118" y="254" width="5" height="24" rx="2.5" />
+                    <rect x="129" y="240" width="5" height="38" rx="2.5" />
+                    <rect x="140" y="256" width="5" height="22" rx="2.5" />
+                    <rect x="151" y="245" width="5" height="33" rx="2.5" />
+                    <rect x="162" y="252" width="5" height="26" rx="2.5" />
+                    <rect x="173" y="244" width="5" height="34" rx="2.5" />
+                    <rect x="183" y="256" width="5" height="22" rx="2.5" />
+                    <circle cx="87.5" cy="234" r="2.5" />
+                    <circle cx="131.5" cy="232" r="2.5" />
+                    <circle cx="175.5" cy="236" r="2.5" />
+                  </g>
+                  <text x="130" y="302" fill="#64748b" font-size="11" font-weight="600" text-anchor="middle">FRONT</text>
+                </g>
+
+                <!-- BACK SHIRT (Right) -->
+                <g transform="translate(340, 22)">
+                  <!-- Sleeves -->
+                  <path d="M72 42 L18 84 L42 126 L76 102 Z" fill="#18181b" />
+                  <path d="M18 84 L42 126 L48 121 L24 79 Z" fill="#166534" />
+                  <path d="M188 42 L242 84 L218 126 L184 102 Z" fill="#18181b" />
+                  <path d="M242 84 L218 126 L212 121 L236 79 Z" fill="#166534" />
+                  <!-- Torso -->
+                  <path d="M72 42 Q130 48 188 42 L192 282 L68 282 Z" fill="#18181b" />
+                  <!-- Back Collar -->
+                  <path d="M96 34 Q130 42 164 34 L160 46 Q130 52 100 46 Z" fill="#27272a" stroke="#166534" stroke-width="2" />
+                  <!-- Back Text -->
+                  <text x="130" y="96" fill="#f4f4f5" font-size="12" font-weight="800" letter-spacing="1" text-anchor="middle" font-family="Inter, sans-serif">TEAM MOHFW</text>
+                  <!-- Green Hem Digital Pattern -->
+                  <g fill="#166534" opacity="0.9">
+                    <rect x="74" y="252" width="5" height="26" rx="2.5" />
+                    <rect x="85" y="242" width="5" height="36" rx="2.5" />
+                    <rect x="96" y="258" width="5" height="20" rx="2.5" />
+                    <rect x="107" y="246" width="5" height="32" rx="2.5" />
+                    <rect x="118" y="254" width="5" height="24" rx="2.5" />
+                    <rect x="129" y="240" width="5" height="38" rx="2.5" />
+                    <rect x="140" y="256" width="5" height="22" rx="2.5" />
+                    <rect x="151" y="245" width="5" height="33" rx="2.5" />
+                    <rect x="162" y="252" width="5" height="26" rx="2.5" />
+                    <rect x="173" y="244" width="5" height="34" rx="2.5" />
+                    <rect x="183" y="256" width="5" height="22" rx="2.5" />
+                    <circle cx="87.5" cy="234" r="2.5" />
+                    <circle cx="131.5" cy="232" r="2.5" />
+                    <circle cx="175.5" cy="236" r="2.5" />
+                  </g>
+                  <text x="130" y="302" fill="#64748b" font-size="11" font-weight="600" text-anchor="middle">BACK</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </section>
+
+        <!-- Interactive Size Chart Card -->
+        <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h2 class="font-bold text-slate-900">Hepta Size Chart (Inches)</h2>
+              <p class="text-xs text-slate-500">Click any row below to auto-select that size in the form</p>
+            </div>
+            <div class="inline-flex rounded-lg bg-slate-100 p-1 text-xs font-semibold">
+              <button type="button" id="chartAdultBtn" onclick="setCategory('Adult')" class="px-3 py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition">
+                Adult (2XS–9XL)
+              </button>
+              <button type="button" id="chartKidsBtn" onclick="setCategory('Kids')" class="px-3 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition">
+                Kids (2XS–4XL)
+              </button>
+            </div>
+          </div>
+
+          <div class="p-5 grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+            <!-- Size Table -->
+            <div class="md:col-span-7 overflow-hidden rounded-xl border border-slate-200">
+              <table class="w-full text-sm text-left">
+                <thead class="bg-slate-900 text-white text-xs uppercase">
+                  <tr>
+                    <th class="px-4 py-2.5">Size</th>
+                    <th class="px-4 py-2.5">Width (in)</th>
+                    <th class="px-4 py-2.5">Length (in)</th>
+                  </tr>
+                </thead>
+                <tbody id="sizeChartBody" class="divide-y divide-slate-100">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Measurement Guide Diagram -->
+            <div class="md:col-span-5 bg-slate-50 rounded-xl p-4 border border-slate-200/80 flex flex-col items-center text-center">
+              <svg viewBox="0 0 200 185" class="w-40 h-auto" xmlns="http://www.w3.org/2000/svg">
+                <!-- T-shirt outline -->
+                <path d="M62 24 L24 52 L42 78 L62 64 L62 162 L138 162 L138 64 L158 78 L176 52 L138 24 Q100 38 62 24 Z" fill="#ffffff" stroke="#334155" stroke-width="2" />
+                <path d="M76 26 Q100 42 124 26" fill="none" stroke="#334155" stroke-width="2" />
+                <!-- Length Line -->
+                <line x1="84" y1="28" x2="84" y2="160" stroke="#dc2626" stroke-width="1.8" />
+                <polygon points="84,25 80,32 88,32" fill="#dc2626" />
+                <polygon points="84,162 80,155 88,155" fill="#dc2626" />
+                <text x="54" y="18" fill="#dc2626" font-size="9" font-weight="700">LENGTH</text>
+                <!-- Width Line -->
+                <line x1="64" y1="92" x2="136" y2="92" stroke="#dc2626" stroke-width="1.8" />
+                <polygon points="62,92 69,88 69,96" fill="#dc2626" />
+                <polygon points="138,92 131,88 131,96" fill="#dc2626" />
+                <text x="115" y="106" fill="#dc2626" font-size="9" font-weight="700">WIDTH</text>
+              </svg>
+              <p class="text-[11px] text-slate-500 mt-2 leading-relaxed">
+                Measurements are in inches and obtained manually; tolerance may vary by ±0.5 in.
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Right Column: Submission Form -->
+      <div class="lg:col-span-5 lg:sticky lg:top-28">
+        <form id="orderForm" onsubmit="submitOrder(event)" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 space-y-5">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Submit Your Order</h2>
+            <p class="text-xs text-slate-500 mt-0.5">All fields marked with * are required.</p>
+          </div>
+
+          <!-- Full Name -->
+          <div>
+            <label for="fullName" class="block text-sm font-semibold text-slate-700 mb-1.5">
+              Full Name <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="fullName"
+              required
+              placeholder="e.g. Ahmed Ali"
+              class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-700 focus:border-emerald-700"
+            />
+          </div>
+
+          <!-- Category Selector -->
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1.5">
+              Size Category <span class="text-red-500">*</span>
+            </label>
+            <div class="grid grid-cols-2 gap-2.5">
+              <button
+                type="button"
+                id="formAdultBtn"
+                onclick="setCategory('Adult')"
+                class="py-2.5 px-3 rounded-xl border-2 border-emerald-800 bg-emerald-50 text-emerald-900 font-semibold text-sm transition"
+              >
+                Adult
+              </button>
+              <button
+                type="button"
+                id="formKidsBtn"
+                onclick="setCategory('Kids')"
+                class="py-2.5 px-3 rounded-xl border border-slate-300 bg-white text-slate-700 font-medium text-sm hover:bg-slate-50 transition"
+              >
+                Kids
+              </button>
+            </div>
+          </div>
+
+          <!-- Size Dropdown -->
+          <div>
+            <label for="sizeSelect" class="block text-sm font-semibold text-slate-700 mb-1.5">
+              Select Size <span class="text-red-500">*</span>
+            </label>
+            <select
+              id="sizeSelect"
+              required
+              onchange="highlightSelectedSize()"
+              class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-700 focus:border-emerald-700"
+            >
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <!-- Number of Pieces -->
+          <div>
+            <label for="piecesInput" class="block text-sm font-semibold text-slate-700 mb-1.5">
+              Number of Pieces <span class="text-red-500">*</span>
+            </label>
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
+                onclick="adjustPieces(-1)"
+                class="w-10 h-10 rounded-xl border border-slate-300 bg-slate-50 hover:bg-slate-100 font-bold text-slate-700"
+              >
+                −
+              </button>
+              <input
+                type="number"
+                id="piecesInput"
+                min="1"
+                max="100"
+                value="1"
+                required
+                class="w-full text-center rounded-xl border border-slate-300 px-3.5 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-700 focus:border-emerald-700"
+              />
+              <button
+                type="button"
+                onclick="adjustPieces(1)"
+                class="w-10 h-10 rounded-xl border border-slate-300 bg-slate-50 hover:bg-slate-100 font-bold text-slate-700"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <!-- Optional Notes -->
+          <div>
+            <label for="notesInput" class="block text-sm font-semibold text-slate-700 mb-1.5">
+              Remarks / Department <span class="text-slate-400 font-normal">(Optional)</span>
+            </label>
+            <input
+              type="text"
+              id="notesInput"
+              placeholder="e.g. Nursing, Admin, Lab..."
+              class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-700 focus:border-emerald-700"
+            />
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="pt-1 space-y-2.5">
+            <button
+              type="submit"
+              id="submitBtn"
+              class="w-full py-3 px-4 rounded-xl bg-emerald-900 hover:bg-emerald-950 text-white font-semibold text-sm shadow-sm transition"
+            >
+              Submit Order
+            </button>
+            <button
+              type="button"
+              onclick="submitOrder(event, true)"
+              class="w-full py-2.5 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-200 font-semibold text-xs transition"
+            >
+              Save &amp; Add Another Size (Keep Name)
+            </button>
+          </div>
+
+          <!-- Feedback Toast -->
+          <div id="formToast" class="hidden rounded-xl p-3 text-xs font-medium bg-emerald-50 text-emerald-900 border border-emerald-200"></div>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- TAB 2: RESPONSES & SUMMARY -->
+    <div id="responsesView" class="hidden space-y-6">
+
+      <!-- Top Summary Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-xs font-medium text-slate-500">Total Pieces</p>
+          <p id="statTotalPieces" class="text-2xl font-extrabold text-emerald-900 mt-1">0</p>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-xs font-medium text-slate-500">Total Entries</p>
+          <p id="statTotalEntries" class="text-2xl font-extrabold text-slate-900 mt-1">0</p>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-xs font-medium text-slate-500">Adult Pieces</p>
+          <p id="statAdultPieces" class="text-2xl font-extrabold text-slate-900 mt-1">0</p>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-xs font-medium text-slate-500">Kids Pieces</p>
+          <p id="statKidsPieces" class="text-2xl font-extrabold text-slate-900 mt-1">0</p>
+        </div>
+      </div>
+
+      <!-- Size Breakdown Pills -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <h3 class="font-bold text-slate-900 text-sm">Size Breakdown (Pieces per Size)</h3>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="copySummaryText()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 transition">
+              Copy Summary
+            </button>
+            <button onclick="exportCSV()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-900 hover:bg-emerald-950 text-white transition">
+              Export CSV / Excel
+            </button>
+          </div>
+        </div>
+        <div id="sizeBreakdownContainer" class="flex flex-wrap gap-2 text-xs">
+          <span class="text-slate-400">No orders submitted yet.</span>
+        </div>
+      </div>
+
+      <!-- Orders Table -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h3 class="font-bold text-slate-900">Submitted Orders</h3>
+          <div class="flex flex-wrap items-center gap-2">
+            <input
+              type="text"
+              id="searchInput"
+              oninput="renderResponses()"
+              placeholder="Search name or remarks..."
+              class="rounded-xl border border-slate-300 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-700"
+            />
+            <select
+              id="filterCategory"
+              onchange="renderResponses()"
+              class="rounded-xl border border-slate-300 px-3 py-1.5 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-emerald-700"
+            >
+              <option value="ALL">All Categories</option>
+              <option value="Adult">Adult Only</option>
+              <option value="Kids">Kids Only</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead class="bg-slate-50 text-slate-600 text-xs uppercase border-b border-slate-200">
+              <tr>
+                <th class="px-4 py-3">#</th>
+                <th class="px-4 py-3">Full Name</th>
+                <th class="px-4 py-3">Category</th>
+                <th class="px-4 py-3">Size</th>
+                <th class="px-4 py-3">Pieces</th>
+                <th class="px-4 py-3">Remarks</th>
+                <th class="px-4 py-3 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody" class="divide-y divide-slate-100">
+              <tr>
+                <td colspan="7" class="px-4 py-8 text-center text-slate-400 text-xs">
+                  No orders yet. Switch to the Order Form tab to add the first entry.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Firebase SDKs (for Cloud Sync) + Application Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      deleteDoc,
+      doc,
+      onSnapshot,
+      query,
+      orderBy,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+    // =========================================================================
+    // OPTIONAL CLOUD SETUP: Paste your Firebase Web App config below to enable
+    // live multi-device cloud storage when hosted on Netlify or GitHub Pages.
+    // =========================================================================
+    const firebaseConfig = {
+      apiKey: "",
+      authDomain: "",
+      projectId: "",
+      storageBucket: "",
+      messagingSenderId: "",
+      appId: ""
+    };
+
+    const SIZE_DATA = {
+      Adult: [
+        { size: "2XS", width: "16.5", length: "23.5" },
+        { size: "XS",  width: "17.5", length: "24.5" },
+        { size: "S",   width: "18.5", length: "25.5" },
+        { size: "M",   width: "19.5", length: "26.5" },
+        { size: "L",   width: "20.5", length: "27.5" },
+        { size: "XL",  width: "21.5", length: "28.5" },
+        { size: "2XL", width: "22.5", length: "29.5" },
+        { size: "3XL", width: "23.5", length: "30.5" },
+        { size: "4XL", width: "24.5", length: "30.5" },
+        { size: "5XL", width: "25.5", length: "30.5" },
+        { size: "6XL", width: "26.5", length: "30.5" },
+        { size: "7XL", width: "27.5", length: "31.5" },
+        { size: "8XL", width: "28.5", length: "31.5" },
+        { size: "9XL", width: "29.5", length: "31.5" }
+      ],
+      Kids: [
+        { size: "2XS", width: "9.5",  length: "14.5" },
+        { size: "XS",  width: "10.5", length: "15.5" },
+        { size: "S",   width: "11.5", length: "16.5" },
+        { size: "M",   width: "12.5", length: "17.5" },
+        { size: "L",   width: "13.5", length: "18.5" },
+        { size: "XL",  width: "14.5", length: "19.5" },
+        { size: "2XL", width: "15.5", length: "20.5" },
+        { size: "3XL", width: "16.5", length: "21.5" },
+        { size: "4XL", width: "17.5", length: "22.5" }
+      ]
+    };
+
+    let currentCategory = "Adult";
+    let orders = [];
+    let db = null;
+    let useCloud = false;
+    const LOCAL_STORAGE_KEY = "mhc_casual_wear_orders_v1";
+
+    // Initialize Cloud or Local Fallback
+    async function initStorage() {
+      if (firebaseConfig.apiKey && firebaseConfig.projectId) {
+        try {
+          const app = initializeApp(firebaseConfig);
+          const auth = getAuth(app);
+          await signInAnonymously(auth);
+          db = getFirestore(app);
+          useCloud = true;
+          updateSyncBadge(true, "Cloud Synced");
+
+          const q = query(collection(db, "casual_wear_orders"), orderBy("createdAt", "desc"));
+          onSnapshot(q, (snapshot) => {
+            orders = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+            renderResponses();
+          }, (err) => {
+            console.error("Firestore error:", err);
+            updateSyncBadge(false, "Cloud Error (Local Fallback)");
+            loadLocalOrders();
+          });
+          return;
+        } catch (err) {
+          console.warn("Firebase init failed, falling back to local storage:", err);
+        }
+      }
+      loadLocalOrders();
+    }
+
+    function loadLocalOrders() {
+      useCloud = false;
+      updateSyncBadge(false, "Local Browser Storage");
+      try {
+        orders = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "[]");
+      } catch {
+        orders = [];
+      }
+      renderResponses();
+    }
+
+    function saveLocalOrders() {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(orders));
+      renderResponses();
+    }
+
+    function updateSyncBadge(isCloud, label) {
+      const badge = document.getElementById("syncBadge");
+      const dot = document.getElementById("syncDot");
+      const text = document.getElementById("syncText");
+      text.textContent = label;
+      if (isCloud) {
+        badge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200";
+        dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+      } else {
+        badge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200";
+        dot.className = "w-2 h-2 rounded-full bg-amber-500";
+      }
+    }
+
+    // UI Helpers exposed to global window
+    window.switchTab = function(tab) {
+      const orderView = document.getElementById("orderView");
+      const responsesView = document.getElementById("responsesView");
+      const tabOrderBtn = document.getElementById("tabOrderBtn");
+      const tabResponsesBtn = document.getElementById("tabResponsesBtn");
+
+      if (tab === "order") {
+        orderView.classList.remove("hidden");
+        responsesView.classList.add("hidden");
+        tabOrderBtn.classList.add("tab-active");
+        tabResponsesBtn.classList.remove("tab-active");
+      } else {
+        orderView.classList.add("hidden");
+        responsesView.classList.remove("hidden");
+        tabResponsesBtn.classList.add("tab-active");
+        tabOrderBtn.classList.remove("tab-active");
+        renderResponses();
+      }
+    };
+
+    window.setCategory = function(cat) {
+      currentCategory = cat;
+
+      // Update Chart Toggle Buttons
+      const chartAdult = document.getElementById("chartAdultBtn");
+      const chartKids = document.getElementById("chartKidsBtn");
+      if (cat === "Adult") {
+        chartAdult.className = "px-3 py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition";
+        chartKids.className = "px-3 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition";
+      } else {
+        chartKids.className = "px-3 py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition";
+        chartAdult.className = "px-3 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition";
+      }
+
+      // Update Form Category Buttons
+      const formAdult = document.getElementById("formAdultBtn");
+      const formKids = document.getElementById("formKidsBtn");
+      if (cat === "Adult") {
+        formAdult.className = "py-2.5 px-3 rounded-xl border-2 border-emerald-800 bg-emerald-50 text-emerald-900 font-semibold text-sm transition";
+        formKids.className = "py-2.5 px-3 rounded-xl border border-slate-300 bg-white text-slate-700 font-medium text-sm hover:bg-slate-50 transition";
+      } else {
+        formKids.className = "py-2.5 px-3 rounded-xl border-2 border-emerald-800 bg-emerald-50 text-emerald-900 font-semibold text-sm transition";
+        formAdult.className = "py-2.5 px-3 rounded-xl border border-slate-3
